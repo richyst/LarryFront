@@ -11,10 +11,12 @@
 angular
   .module('larryFrontApp', [
     'ngAnimate',
+    'base64',
     'ngCookies',
     'ngResource',
     'ngRoute',
     'ngSanitize',
+    'naif.base64',
     'ngTouch'
   ])
   .config(function ($routeProvider) {
@@ -28,6 +30,11 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
+      })
+      .when('/categorias', {
+        templateUrl: 'views/categorias.html',
+        controller: 'CategoriasCtrl',
+        controllerAs: 'categorias'
       })
       .otherwise({
         redirectTo: '/'

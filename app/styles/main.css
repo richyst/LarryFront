@@ -15,6 +15,8 @@ body {
 .footer {
   padding-left: 15px;
   padding-right: 15px;
+
+  background: #FFFFFF;
 }
 
 /* Custom page header */
@@ -79,5 +81,19 @@ body {
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
     border-bottom: 0;
+  }
+  .fondo{
+    background-color: #eee;
+  }
+  .imagenCat{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    height: 11em;
+  }
+  .categoria{
+    padding-top: 25px;
+    padding-bottom: 25px;
+    text-align: center;
   }
 }

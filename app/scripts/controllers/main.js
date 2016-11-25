@@ -8,10 +8,19 @@
  * Controller of the larryFrontApp
  */
 angular.module('larryFrontApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($scope, $http, $base64) {
+    $scope.test=null;
+    $http.get('../../categorias.json').success(function(data) {
+        $scope.categorias = data;
+        console.log(data);
+        console.log($base64.encode('undefined'));
+    }).error(function(data){
+      console.log("Error en get de json");
+    });
+
+    $scope.encodeImagen = function(imagen){
+      console.log(imagen.base64);
+      $scope.test=imagen.base64;
+    };
+
   });

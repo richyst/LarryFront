@@ -1,0 +1,16 @@
+[
+  {
+    "id":1,
+    "nombre":"Ricardo",
+    "username":"RichyST",
+    "campus":"CCM",
+    "score":23
+  },
+  {
+    "id":2,
+    "nombre":"Diego",
+    "username":"DiegoRT",
+    "campus":"CSF",
+    "score":42
+  }
+]
