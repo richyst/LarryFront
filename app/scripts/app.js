@@ -36,6 +36,21 @@ angular
         controller: 'CategoriasCtrl',
         controllerAs: 'categorias'
       })
+      .when('/categorias/:id', {
+        templateUrl: 'views/categorias.html',
+        controller: 'CategoriasCtrl',
+        controllerAs: 'categorias'
+      })
+      .when('/preguntas', {
+        templateUrl: 'views/preguntas.html',
+        controller: 'PreguntasCtrl',
+        controllerAs: 'preguntas'
+      })
+      .when('/preguntas/:id', {
+        templateUrl: 'views/preguntas.html',
+        controller: 'PreguntasCtrl',
+        controllerAs: 'preguntas'
+      })
       .otherwise({
         redirectTo: '/'
       });

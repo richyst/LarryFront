@@ -1,1 +1,30 @@
-<p>This is the categorias view.</p>
+
+<div class="fondo" ng-repeat="pregunta in preguntas">
+  <div class="pregunta" ng-click="navegar(pregunta.id)">
+    <div class="lim">
+      <h4><u><strong>{{pregunta.titulo}}</strong></u> <span class="pull-right glyphicon glyphicon-question-sign"></span></h4>
+      <h6>{{pregunta.texto}}</h6>
+    </div>
+    <div class="col-md-3">
+      <h6>
+        <span class="glyphicon glyphicon-user"></span> {{pregunta.username}}
+      </h6>
+    </div>
+    <div class="col-md-3">
+      <h6>
+        <span class="glyphicon glyphicon-education"> </span> {{pregunta.campus}}
+      </h6>
+    </div>
+    <div class="col-md-3">
+      <h6>
+        <span class="glyphicon glyphicon-calendar"></span> {{pregunta.fecha}}
+      </h6>
+    </div>
+    <div class="col-md-3">
+      <h6>
+        <span class="glyphicon glyphicon-book"></span> {{pregunta.cat}}
+      </h6>
+    </div>
+    <br>
+  </div>
+</div>
