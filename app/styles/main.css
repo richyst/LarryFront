@@ -62,7 +62,6 @@ body {
 }
 
 /* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
   .container {
     max-width: 730px;
   }
@@ -90,11 +89,15 @@ body {
     margin-right: auto;
     display: block;
     height: 11em;
+    cursor: pointer;
+  }
+  .categoriaTitulo{
+    text-align: center;
+    cursor: pointer;
   }
   .categoria{
     padding-top: 25px;
     padding-bottom: 25px;
-    text-align: center;
   }
 
   .preguntaRes{
@@ -104,6 +107,8 @@ body {
     padding-top: 0px;
     padding-right: 15px;
     padding-bottom: 25px;
+    background-color: rgba(115, 173, 33, 0.05);
+    cursor: pointer;
 
   }
   .pregunta{
@@ -113,15 +118,66 @@ body {
     padding-top: 0px;
     padding-right: 15px;
     padding-bottom: 25px;
+    cursor: pointer;
   }
   .lim{
-    height: 4.75em;
+    height: 2.75em;
     overflow: hidden;
   }
   .res{
     color:#73AD21;
   }
-  .imagenUser{
+  .respuesta{
     padding-top: 10px;
   }
-}
+  .areaRes{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+  }
+  .btn-link {
+    font-weight: normal;
+    color: #333333;
+    border-radius: 0;
+  }
+  .btn-primary {
+    color: #fff;
+    background-color: #333333;
+    border-color: #2e6da4;
+  }
+  .btn-primary:hover {
+    color: #fff;
+    background-color: #666666;
+    border-color: #204d74;
+  }
+  .btn-primary:active:hover:focus {
+    color: #fff;
+    background-color: #333333;
+    border-color: #204d74;
+  }
+  .btn-primary:focus {
+    color: #fff;
+    background-color: #333333;
+    border-color: #204d74;
+  }
+  .respuestaRes{
+    border-radius: 15px;
+    border: 3px solid #73AD21;
+    padding-left:  15px;
+    padding-top: 5px;
+    padding-right: 15px;
+    padding-bottom: 25px;
+    background-color: rgba(115, 173, 33, 0.05);
+
+  }
+  .respuestaNo{
+    border-radius: 15px;
+    border: 3px solid #000;
+    padding-left:  15px;
+    padding-top: 0px;
+    padding-right: 15px;
+    padding-bottom: 25px;
+  }
+  .clickear{
+    cursor: pointer;
+  }

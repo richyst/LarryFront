@@ -2,7 +2,7 @@
   <div ng-repeat="categoria in categorias">
     <div class="col-xs-4 categoria" ng-click="navegar(categoria.id)">
       <img data-ng-src="data:image/png;base64,{{categoria.imagen}}" class="imagenCat"/>
-      <h5>{{categoria.nombre}}</h5>
+      <h5 class="categoriaTitulo">{{categoria.nombre}}</h5>
     </div>
   </div>
 </div>

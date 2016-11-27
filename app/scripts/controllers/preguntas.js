@@ -19,14 +19,13 @@ angular.module('larryFrontApp')
             $scope.respuestas1 = data;
             angular.forEach($scope.respuestas1, function(resp){
               if($scope.pregunta.id===resp.idPreg){
+                resp.votado=0;
                 $scope.respuestas.push(resp);
                 if(resp.res===true){
                   $scope.pregunta.status=true;
-                  $scope.pregunta.check="preguntaRes";
                 }
                 if(resp.res===false && $scope.pregunta.status!==true){
                   $scope.pregunta.status=false;
-                  $scope.pregunta.check="pregunta";
                 }
                 $scope.pregunta.resps++;
               }
@@ -70,4 +69,15 @@ angular.module('larryFrontApp')
     }).error(function(data){
       console.log("Error en get de json");
     });
+    $scope.votar = function(resp, valor){
+      resp.score=(resp.score+valor);
+      $http.put('http://localhost:8080/Respuestas/'+resp.id,{
+        score:resp.score
+      }).then(function(){
+        console.log(resp.score);
+      });
+    };
+    $scope.nuevaRespuesta = function(resp){
+      console.log(resp + $scope.term);
+    };
   });

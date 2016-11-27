@@ -3,7 +3,6 @@
   <div ng-class="[pregunta.check]" ng-click="navegar(pregunta.id)">
     <div class="lim">
       <h4><u><strong >{{pregunta.titulo}}</strong></u> <span ng-if="pregunta.status===false" class="pull-right glyphicon glyphicon-question-sign"></span><span ng-if="pregunta.status===true" class="pull-right glyphicon glyphicon-ok-sign res"></span></h4>
-      <h6>{{pregunta.texto}}</h6>
     </div>
     <div class="col-xs-2 text-center">
       <h6>
