@@ -99,7 +99,7 @@ body {
 
   .preguntaRes{
     border-radius: 15px;
-    border: 2px solid #73AD21;
+    border: 3px solid #73AD21;
     padding-left:  15px;
     padding-top: 0px;
     padding-right: 15px;
@@ -108,7 +108,7 @@ body {
   }
   .pregunta{
     border-radius: 15px;
-    border: 2px solid #000;
+    border: 3px solid #000;
     padding-left:  15px;
     padding-top: 0px;
     padding-right: 15px;
@@ -117,5 +117,11 @@ body {
   .lim{
     height: 4.75em;
     overflow: hidden;
+  }
+  .res{
+    color:#73AD21;
+  }
+  .imagenUser{
+    padding-top: 10px;
   }
 }

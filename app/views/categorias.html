@@ -1,28 +1,33 @@
 
 <div class="fondo" ng-repeat="pregunta in preguntas">
-  <div class="pregunta" ng-click="navegar(pregunta.id)">
+  <div ng-class="[pregunta.check]" ng-click="navegar(pregunta.id)">
     <div class="lim">
-      <h4><u><strong>{{pregunta.titulo}}</strong></u> <span class="pull-right glyphicon glyphicon-question-sign"></span></h4>
+      <h4><u><strong >{{pregunta.titulo}}</strong></u> <span ng-if="pregunta.status===false" class="pull-right glyphicon glyphicon-question-sign"></span><span ng-if="pregunta.status===true" class="pull-right glyphicon glyphicon-ok-sign res"></span></h4>
       <h6>{{pregunta.texto}}</h6>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-2 text-center">
       <h6>
         <span class="glyphicon glyphicon-user"></span> {{pregunta.username}}
       </h6>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-2 text-center">
       <h6>
         <span class="glyphicon glyphicon-education"> </span> {{pregunta.campus}}
       </h6>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-2 text-center">
       <h6>
         <span class="glyphicon glyphicon-calendar"></span> {{pregunta.fecha}}
       </h6>
     </div>
-    <div class="col-xs-3">
+    <div class="col-xs-3 text-center">
       <h6>
-        <span class="glyphicon glyphicon-book"></span> {{pregunta.cat}}
+        <span class="glyphicon glyphicon-book"></span> {{categoria.nombre}}
+      </h6>
+    </div>
+    <div class="col-xs-1 text-center">
+      <h6>
+        <span class="glyphicon glyphicon-stats"></span> {{pregunta.resps}}
       </h6>
     </div>
     <br>
