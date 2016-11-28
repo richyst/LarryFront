@@ -8,10 +8,10 @@
  * Controller of the larryFrontApp
  */
 angular.module('larryFrontApp')
-  .controller('CategoriasCtrl', function ($scope, $routeParams, $http, $location) {
+  .controller('CategoriasCtrl', function ($scope, $routeParams, $http, $location,$window) {
     $scope.term =Number($routeParams.id);
     $scope.preguntas=[];
-
+    $scope.datos=$window.sessionStorage;
     $http.get('http://localhost:8080/Preguntas').success(function(data) {
         $scope.preguntas1 = data;
         angular.forEach($scope.preguntas1, function(item){
@@ -68,6 +68,47 @@ angular.module('larryFrontApp')
     }).error(function(data){
       console.log("Error en get de json");
     });
+
+    $scope.login=function(){
+      $http.post('http://localhost:8080/api/login', {
+            username: $scope.userReg.username,
+            password: $scope.userReg.password
+        }).then(function (response) {
+            $window.sessionStorage.authenticated = true;
+            $window.sessionStorage.token = response.data.access_token;
+            $window.sessionStorage.userReg=$scope.userReg.username;
+            $scope.obtenerDatosUser();
+        });
+    };
+    $scope.logout=function(){
+      $window.sessionStorage.clear();
+      $scope.datos=$window.sessionStorage;
+    };
+
+    $scope.obtenerDatosUser= function(){
+      $http.get('http://localhost:8080/Users').success(function(data) {
+          $scope.users = data;
+          angular.forEach($scope.users, function(user){
+            if($window.sessionStorage.userReg===user.username){
+              $window.sessionStorage.userId=user.id;
+            }
+          });
+      }).error(function(data){
+        console.log("Error en get de json");
+      });
+      $scope.datos=$window.sessionStorage;
+    };
+
+    $scope.crearPregunta = function(newPreg){
+      $http.post('http://localhost:8080/Preguntas', {
+            idCat:$scope.categoria.id,
+            texto:newPreg.texto,
+            titulo:newPreg.titulo,
+            idUser:$scope.datos.userId
+        }).then(function (response) {
+            console.log(response);
+        });
+    };
 
     $scope.navegar = function(id){
       $location.path( '/preguntas/'+id );
