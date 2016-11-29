@@ -1,0 +1,436 @@
+swagger: '2.0'
+info:
+  version: "1.0"
+  title: Larry
+  description: Plataforma para preguntas y respuestas Larry
+  
+host: localhost:8080
+basePath: /
+consumes:
+  - application/json
+produces:
+  - application/json
+  
+paths: 
+  /Users/{userId):
+    get:
+      summary: Regresa un usuario segun su ID
+      
+      parameters:
+        - name: userId
+          type: integer
+          in: path
+          required: true
+          description: El ID del usuario a regresar
+
+      responses:
+        200:
+          description: OK
+          schema:
+            type: Object
+            properties:
+              id:
+                type: integer
+              username:
+                type: string
+              campus:
+                type: string
+              score:
+                type: integer
+        400:
+          description: Usuario no encontrado
+    
+    delete: 
+      summary: Elimina el usuario deseado segun su ID
+      parameters:
+        - name: userID
+          type: integer
+          in: path
+          required: true
+          description: El Id del usuario a eliminar
+      responses:
+        201:
+          description: Usuario eliminado
+    put:
+      summary: Actualiza un usuario segun su ID
+      
+      parameters:
+        - name: userId
+          in: body
+          description: Actualiza informacion de usuario
+          schema:
+            type: object 
+            properties:
+              username:
+                type: string
+              campus:
+                type: string
+              score:
+                type: integer
+              password:
+                type: string
+
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              username:
+                type: string
+              campus:
+                type: string
+              score:
+                type: integer
+        400:
+          description: Usuario no encontrado
+  /Users:          
+    post:
+      description: Permite la creación de un nuevo usuario
+      parameters:
+        - name: username
+          in: body
+          description: Crea nuevo usuario
+          schema:
+            type: object 
+            required:
+              - username
+              - password
+              - campus
+              - score
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+              score:
+                type: integer
+              campus:
+                type: string
+                
+      responses:
+        201:
+          description: Usuario Agregado
+          
+        400:
+          description: Error 
+
+    get:
+      description: Regresa lista de usuarios
+      responses:
+        200:
+          description: OK
+          
+  /Preguntas:          
+    post:
+      description: Permite la creación de una nueva pregunta
+      
+      parameters:
+        - name: titulo
+          in: body
+          description: titulo de la pregunta
+          schema:
+            type: object 
+            required:
+              - titulo
+              - texto
+              - idUser
+              - fecha
+              - idCat
+            properties:
+              titulo:
+                type: string
+              texto:
+                type: string
+              idUser:
+                type: integer
+              fecha:
+                type: string
+              idCat:
+                type: integer  
+                
+      responses:
+        201:
+          description: Pregunta Agregada
+          
+        400:
+          description: Error 
+
+    get:
+      description: Regresa lista de preguntas
+      responses:
+        200:
+          description: OK
+  
+  /Preguntas/{idPreg}:        
+    get:
+      summary: Regresa una pregunta segun su ID
+      
+      parameters:
+        - name: idPreg
+          type: integer
+          in: path
+          required: true
+          description: El ID de la pregunta a regresar
+
+      responses:
+        200:
+          schema:
+            type: Object
+            properties:
+              id:
+                type: integer
+              idCat:
+                type: integer
+              titulo:
+                type: string
+              texto:
+                type: string
+              idUser:
+                type: integer
+              fecha:
+                type: date
+        400:
+          description: Pregunta no encontrada
+    
+    delete: 
+      summary: Elimina la pregunta deseada segun el ID
+      parameters:
+        - name: idPreg
+          type: integer
+          in: path
+          required: true
+          description: El Id de la pregunta a eliminar
+      responses:
+        201:
+          description: Pregunta eliminada 
+          
+          
+    put:
+      summary: Actualiza una pregunta segun su ID
+      
+      parameters:
+        - name: idPreg
+          in: body
+          description: Actualiza informacion de pregunta
+          schema:
+            type: object 
+            properties:
+              titulo:
+                type: string
+              texto:
+                type: string
+              idUser:
+                type: integer
+              idCat:
+                type: integer
+              fecha:
+                type: date
+
+      responses:
+        200:
+          description: Objeto actualizado
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              idCat:
+                type: integer
+              texto:
+                type: string
+              titulo:
+                type: string
+              idUser:
+                type: integer
+              fecha: 
+                type: date
+        400:
+          description: Pregunta no encontrada       
+          
+  /Respuestas:          
+    post:
+      description: Permite la creación de una nueva respuesta
+      
+      parameters:
+        - name: texto
+          in: body
+          description: texto de la respuesta
+          schema:
+            type: object 
+            required:
+              - idPreg
+              - res
+              - score
+              - texto
+              - username
+            properties:
+              idPreg:
+                type: integer
+              res:
+                type: boolean
+              score:
+                type: integer
+              texto:
+                type: string
+              uername:
+                type: string  
+                
+      responses:
+        201:
+          description: Respuesta creada
+          
+        400:
+          description: Error 
+
+    get:
+      description: Regresa lista de respuestas
+      responses:
+        200:
+          description: OK
+    
+  /Respuestas/{idResp}:        
+    get:
+      summary: Regresa una respuesta segun su ID
+      
+      parameters:
+        - name: idResp
+          type: integer
+          in: path
+          required: true
+          description: El ID de la respuesta a regresar
+
+      responses:
+        200:
+          schema:
+            type: Object
+            properties:
+              id:
+                type: integer
+              idPreg:
+                type: integer
+              res:
+                type: integer
+              score:
+                type: integer
+              texto:
+                type: string
+              username:
+                type: string
+        400:
+          description: Pregunta no encontrada
+    
+    delete: 
+      summary: Elimina la respuesta deseada segun el ID
+      parameters:
+        - name: idResp
+          type: integer
+          in: path
+          required: true
+          description: El Id de la respuesta a eliminar
+      responses:
+        201:
+          description: respuesta eliminada 
+          
+          
+    put:
+      summary: Actualiza una respuesta segun su ID
+      
+      parameters:
+        - name: idResp
+          in: body
+          description: Actualiza informacion de respuesta
+          schema:
+            type: object 
+            properties:
+              id:
+                type: integer
+              idPreg:
+                type: integer
+              res:
+                type: integer
+              score:
+                type: integer
+              texto:
+                type: string
+              username:
+                type: string
+
+      responses:
+        200:
+          description: Objeto actualizado
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              idCat:
+                type: integer
+              texto:
+                type: string
+              titulo:
+                type: string
+              idUser:
+                type: integer
+              fecha: 
+                type: date
+        400:
+          description: Respuesta no encontrada    
+  /Categorias:          
+    post:
+      description: Permite la creación de una nueva categoria
+      
+      parameters:
+        - name: nombre
+          in: body
+          description: texto de la respuesta
+          schema:
+            type: object 
+            required:
+              - nombre
+              - imagen
+            properties:
+              nombre:
+                type: string
+              imagen:
+                type: string
+                
+      responses:
+        201:
+          description: Categoria creada
+          
+        400:
+          description: Error 
+
+    get:
+      description: Regresa lista de categorias
+      responses:
+        200:
+          description: OK
+          
+  /Categorias/{idCat}:        
+    get:
+      summary: Regresa una respuesta segun su ID
+      
+      parameters:
+        - name: idCat
+          type: integer
+          in: path
+          required: true
+          description: El ID de la categoria a regresar
+
+      responses:
+        200:
+          schema:
+            type: Object
+            properties:
+              id:
+                type: string
+              nombre:
+                type: string
+              imagen:
+                type: string
+        400:
+          description:  Categoria no encontrada
