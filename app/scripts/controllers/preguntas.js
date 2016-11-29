@@ -135,6 +135,13 @@ angular.module('larryFrontApp')
             $scope.infoTotal();
         });
     };
+    $scope.editarResp1 = function(resp){
+      $http.put('http://localhost:8080/Respuestas/'+resp.id, {
+            texto:resp.texto
+        }).then(function () {
+            $scope.infoTotal();
+        });
+    };
     $scope.borrarPregunta = function(preg){
       $http.delete('http://localhost:8080/Preguntas/'+preg.id, {
 
