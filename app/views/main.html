@@ -1,5 +1,3 @@
-
-
   <div class="container fondo">
     <div ng-repeat="categoria in categorias">
       <div class="col-xs-4 categoria" ng-click="navegar(categoria.id)">
@@ -11,6 +9,7 @@
 
   <div class="areaRes" ng-if="!datos.authenticated">
     <button type="button" class="btn btn-primary center-block" data-toggle="modal" data-target="#myModal"> Iniciar Sesión</button>
+    <button type="button" class="btn btn-primary center-block" data-toggle="modal" data-target="#nuevo"> Crear cuenta</button>
   </div>
   <div class="areaRes" ng-if="datos.authenticated">
     <button type="button" class="btn btn-primary center-block" ng-click="logout()"> Cerrar Sesión</button>
@@ -37,7 +36,6 @@
           </div>
         </div>
         <div class="modal-footer">
-          <h6>Valido: {{myForm.username.$valid}}{{myForm.password.$valid}}</h6>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button ng-disabled="!myForm.username.$valid && !myForm.password.$valid" type="button" ng-click="login()" data-dismiss="modal" class="btn btn-primary">Enviar</button>
         </div>
@@ -64,11 +62,42 @@
           </div>
         </div>
         <div class="modal-footer">
-          <h6>Valido: {{myForm.input.$valid}}</h6>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button ng-disabled="!formCat.nombre.$valid && !formCat.imagen.$valid" type="button" ng-click="nuevaCategoria(newCat)" data-dismiss="modal" class="btn btn-primary">Enviar</button>
         </div>
       </form>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="nuevo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <form name="registro">
+      <div class="modal-header">
+        <h4 class="modal-title">Regístrate</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="sr-only" for="usuario">Usuario</label>
+          <input type="text"  name="username"class="form-control" ng-model="usernew.username" id="usuario" placeholder="Usuario" required>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="password">Password</label>
+          <input type="password" name="password" class="form-control" ng-model="usernew.password" id="password" placeholder="Password" required>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="campus">Campus</label>
+          <input type="text"  name="campus" class="form-control" ng-model="usernew.campus" id="campus" placeholder="Campus" maxlength="3" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <h6>{{registro.username.$valid}} {{registro.password.$valid}} {{registro.campus.$valid}}</h6>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button ng-disabled="!registro.username.$valid && !registro.password.$valid && !registro.campus.$valid" type="button" ng-click="crearUsuario(usernew)" data-dismiss="modal" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
 </div>

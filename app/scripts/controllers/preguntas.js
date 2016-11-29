@@ -15,6 +15,8 @@ angular.module('larryFrontApp')
           $scope.pregunta = data;
           $scope.pregunta.resps=0;
           $scope.respuestas=[];
+          $scope.editPreg=null;
+          $scope.editResp=null;
           $scope.datos=$window.sessionStorage;
           $scope.pregunta.fecha= $scope.pregunta.fecha.slice(0,10);
           $http.get('http://localhost:8080/Respuestas').success(function(data) {
@@ -124,4 +126,46 @@ angular.module('larryFrontApp')
           $scope.infoTotal();
         });
     };
+    $scope.editarPregunta = function(preg){
+      $http.put('http://localhost:8080/Preguntas/'+preg.id, {
+            idCat:$scope.categoria.id,
+            texto:preg.texto,
+            titulo:preg.titulo
+        }).then(function () {
+            $scope.infoTotal();
+        });
+    };
+    $scope.borrarPregunta = function(preg){
+      $http.delete('http://localhost:8080/Preguntas/'+preg.id, {
+
+        }).then(function () {
+            $scope.infoTotal();
+        });
+    };
+    $scope.selPregunta = function(preg){
+      $scope.editPreg=preg;
+    };
+    $scope.selRespuesta = function(resp){
+      $scope.editResp=resp;
+      console.log($scope.editResp);
+    };
+    $scope.resolverPregunta = function(resp){
+      console.log(resp);
+      $http.put('http://localhost:8080/Respuestas/'+resp.id,{
+        res:true
+      }).then(function(response){
+        console.log(response);
+        $scope.infoTotal();
+      });
+    };
+    $scope.deresolverPregunta = function(resp){
+      console.log(resp);
+      $http.put('http://localhost:8080/Respuestas/'+resp.id,{
+        res:false
+      }).then(function(response){
+        console.log(response);
+        $scope.infoTotal();
+      });
+    };
+
   });

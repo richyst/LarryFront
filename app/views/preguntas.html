@@ -1,8 +1,10 @@
-{{datos}}
 <div class="fondo">
-  <div class="col-xs-12" ng-class="{ respuestaRes:pregunta.status, respuestaNo: pregunta.status===false}">
+  <div class="col-xs-12 fondo" ng-class="{ respuestaRes:pregunta.status, respuestaNo: pregunta.status===false}">
     <div>
-      <h4><u><strong >{{pregunta.titulo}}</strong></u> <span ng-if="pregunta.status===false" class="pull-right glyphicon glyphicon-question-sign"></span><span ng-if="pregunta.status===true" class="pull-right glyphicon glyphicon-ok-sign res"></span></h4>
+      <h4><u><strong >{{pregunta.titulo}}</strong></u> <span ng-if="pregunta.status===false" class="pull-right glyphicon glyphicon-question-sign"></span>
+        <span ng-if="pregunta.status===true" class="pull-right glyphicon glyphicon-ok-sign res"></span>
+        <span ng-if="pregunta.username===datos.userReg" ng-click="selPregunta(pregunta)" data-toggle="modal" data-target="#editarPreg" class="pull-right glyphicon glyphicon-wrench danger"></span>
+      </h4>
       <h6>{{pregunta.texto}}</h6>
     </div>
     <div class="col-xs-2 text-center">
@@ -41,10 +43,12 @@
       </div>
       <div class="col-xs-10" ng-class="{ respuestaRes:resp.res, respuestaNo: !resp.res}">
         <div class="col-xs-11">
-          <h6 class="respuesta">{{resp.texto}} {{!resp.user.username===datos.userReg}}</h6>
+          <h6 class="respuesta">{{resp.texto}}</h6>
         </div>
         <div class="col-xs-1">
-          <div class="clickear r" ng-if="datos.authenticated && pregunta.username===datos.userReg && resp.user.username===datos.userReg" ng-click="resp.votado=0; votar(resp,1)"><span class="glyphicon glyphicon-ok respuesta res"> </span></div>
+          <div class="clickear" ng-if="datos.authenticated && pregunta.username===datos.userReg && resp.user.username===datos.userReg && !resp.res" ng-click="resolverPregunta(resp)"><span class="glyphicon glyphicon-ok respuesta res"> </span></div>
+          <div class="clickear" ng-if="datos.authenticated && pregunta.username===datos.userReg && resp.user.username===datos.userReg && !resp.res" ng-click="selRespuesta(resp)"><span data-toggle="modal" data-target="#editarResp" class="glyphicon glyphicon-wrench danger"> </span></div>
+          <div class="clickear" ng-if="datos.authenticated && pregunta.username===datos.userReg && resp.user.username===datos.userReg && resp.res" ng-click="deresolverPregunta(resp)"><span class="glyphicon glyphicon-remove respuesta danger"> </span></div>
           <h4 class="text-center">{{resp.score}}</h4>
           <div class="clickear" ng-if="resp.votado===0 || resp.votado===-1 " ng-click="resp.votado=1; votar(resp,1)"><img  alt="" width="20" src="./images/upvote.png"></div>
           <div class="clickear" ng-if="resp.votado===1" ng-click="resp.votado=0; votar(resp,-1)"><img  alt="" width="20" src="./images/upvoteSel.png"></div>
@@ -58,9 +62,10 @@
 
 <div class="areaRes">
   <div ng-if="!datos.authenticated">
-    lol
+    <button type="button" class="btn btn-primary center-block" data-toggle="modal" data-target="#sesion"> Iniciar Sesión</button>
   </div>
   <div ng-if="datos.authenticated">
+    <button type="button" class="btn btn-primary center-block" ng-click="logout()"> Cerrar Sesión</button>
     <button type="button" class="btn btn-primary center-block" data-toggle="modal" data-target="#myModal"> Responder</button>
   </div>
   <br>
@@ -87,4 +92,87 @@
       </form>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="editarPreg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <form name="editForm">
+      <div class="modal-header">
+        <h4 class="modal-title">Pregunta</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="sr-only" for="titulo">Titulo</label>
+          <input type="text"  ng-disabled="editPreg.resps!==0" name="titulo"class="form-control" ng-model="editPreg.titulo" id="titulo" required>
+          <small>No se puede cambiar el titulo una vez que hay respuestas.</small>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="texto">Texto</label>
+          <input type="text" name="texto" class="form-control" ng-model="editPreg.texto" id="texto" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <h6>Valido: {{editForm.titulo.$valid}} {{editForm.texto.$valid}}</h6>
+        <button type="button" class="btn btn-danger" ng-click="borrarPregunta(editPreg)" data-dismiss="modal">Eliminar Pregunta</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button ng-disabled="!editForm.titulo.$valid && !editForm.texto.$valid" type="button" ng-click="editarPregunta(editPreg)" data-dismiss="modal" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="editarResp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <form name="editRespForm">
+      <div class="modal-header">
+        <h4 class="modal-title">Respuesta</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="sr-only" for="texto">Texto</label>
+          <input type="text"  ng-disabled="editResp.score!==0" name="titulo" class="form-control" ng-model="editResp.texto" id="texto" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <small class="danger">No se pueden editar ni eliminar respuestas con score diferente a cero.</small><br>
+        <button ng-disabled="editResp.score!==0" type="button" class="btn btn-danger" ng-click="borrarPregunta(editPreg)" data-dismiss="modal">Eliminar Pregunta</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button ng-disabled="!editRespForm.texto.$valid && editResp.score!==0" type="button" ng-click="editarResp1(editResp)" data-dismiss="modal" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="sesion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <form name="myForm">
+      <div class="modal-header">
+        <h4 class="modal-title">Inicia Sesión</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="sr-only" for="usuario">Usuario</label>
+          <input type="text"  name="username"class="form-control" ng-model="userReg.username" id="usuario" placeholder="Usuario" required>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="password">Password</label>
+          <input type="password" name="password" class="form-control" ng-model="userReg.password" id="password" placeholder="Password" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button ng-disabled="!myForm.username.$valid && !myForm.password.$valid" type="button" ng-click="login()" data-dismiss="modal" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
 </div>

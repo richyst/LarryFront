@@ -62,5 +62,16 @@ angular.module('larryFrontApp')
     $scope.navegar = function(id){
       $location.path( '/categorias/'+id );
     };
+    $scope.crearUsuario = function(user){
+      // console.log(user);
+      $http.post('http://localhost:8080/Users', {
+            campus:user.campus,
+            username:user.username,
+            password:user.password,
+            score:0
+        }).then(function (response) {
+          console.log(response);
+        });
+    };
 
   });

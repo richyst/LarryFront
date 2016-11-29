@@ -1,5 +1,3 @@
-
-{{datos}}
 <div class="fondo" ng-repeat="pregunta in preguntas">
   <div ng-class="[pregunta.check]" >
     <div class="lim">
@@ -68,7 +66,6 @@
         </div>
       </div>
       <div class="modal-footer">
-        <h6>Valido: {{myForm.username.$valid}}{{myForm.password.$valid}}</h6>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button ng-disabled="!myForm.username.$valid && !myForm.password.$valid" type="button" ng-click="login()" data-dismiss="modal" class="btn btn-primary">Enviar</button>
       </div>
@@ -96,7 +93,6 @@
         </div>
       </div>
       <div class="modal-footer">
-        <h6>Valido: {{pregForm.titulo.$valid}} {{pregForm.texto.$valid}}</h6>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button ng-disabled="!pregForm.titulo.$valid && !pregForm.texto.$valid" type="button" ng-click="crearPregunta(newPreg)" data-dismiss="modal" class="btn btn-primary">Enviar</button>
       </div>
@@ -116,7 +112,8 @@
       <div class="modal-body">
         <div class="form-group">
           <label class="sr-only" for="titulo">Titulo</label>
-          <input type="text"  name="titulo"class="form-control" ng-model="editPreg.titulo" id="titulo" required>
+          <input type="text"  ng-disabled="editPreg.resps!==0" name="titulo"class="form-control" ng-model="editPreg.titulo" id="titulo" required>
+          <small>No se puede cambiar el titulo una vez que hay respuestas.</small>
         </div>
         <div class="form-group">
           <label class="sr-only" for="texto">Texto</label>
@@ -124,7 +121,6 @@
         </div>
       </div>
       <div class="modal-footer">
-        <h6>Valido: {{editForm.titulo.$valid}} {{editForm.texto.$valid}}</h6>
         <button type="button" class="btn btn-danger" ng-click="borrarPregunta(editPreg)" data-dismiss="modal">Eliminar Pregunta</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button ng-disabled="!editForm.titulo.$valid && !editForm.texto.$valid" type="button" ng-click="editarPregunta(editPreg)" data-dismiss="modal" class="btn btn-primary">Enviar</button>
