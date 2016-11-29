@@ -17,6 +17,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'naif.base64',
+    'vjs.video',
+    'nvd3',
     'ngTouch'
   ])
   .factory('authInterceptor', function ($rootScope, $window) {
@@ -64,6 +66,16 @@ angular
         templateUrl: 'views/preguntas.html',
         controller: 'PreguntasCtrl',
         controllerAs: 'preguntas'
+      })
+      .when('/tutorial', {
+        templateUrl: 'views/tutorial.html',
+        controller: 'TutorialCtrl',
+        controllerAs: 'tutorial'
+      })
+      .when('/graficas', {
+        templateUrl: 'views/graficas.html',
+        controller: 'GraficasCtrl',
+        controllerAs: 'graficas'
       })
       .otherwise({
         redirectTo: '/'
