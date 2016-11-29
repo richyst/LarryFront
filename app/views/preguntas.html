@@ -47,7 +47,7 @@
         </div>
         <div class="col-xs-1">
           <div class="clickear" ng-if="datos.authenticated && pregunta.username===datos.userReg  && !resp.res" ng-click="resolverPregunta(resp)"><span class="glyphicon glyphicon-ok respuesta res"> </span></div>
-          <div class="clickear" ng-if="datos.authenticated && pregunta.username===datos.userReg && resp.user.username===datos.userReg && !resp.res" ng-click="selRespuesta(resp)"><span data-toggle="modal" data-target="#editarResp" class="glyphicon glyphicon-wrench danger"> </span></div>
+          <div class="clickear" ng-if="datos.authenticated  && resp.user.username===datos.userReg && !resp.res" ng-click="selRespuesta(resp)"><span data-toggle="modal" data-target="#editarResp" class="glyphicon glyphicon-wrench danger"> </span></div>
           <div class="clickear" ng-if="datos.authenticated && pregunta.username===datos.userReg  && resp.res" ng-click="deresolverPregunta(resp)"><span class="glyphicon glyphicon-remove respuesta danger"> </span></div>
           <h4 class="text-center">{{resp.score}}</h4>
           <div class="clickear" ng-if="resp.votado===0 || resp.votado===-1 " ng-click="resp.votado=1; votar(resp,1)"><img  alt="" width="20" src="./images/upvote.png"></div>
@@ -140,7 +140,6 @@
       </div>
       <div class="modal-footer">
         <small class="danger">No se pueden editar ni eliminar respuestas con score diferente a cero.</small><br>
-        <button ng-disabled="editResp.score!==0" type="button" class="btn btn-danger" ng-click="borrarPregunta(editPreg)" data-dismiss="modal">Eliminar Pregunta</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button ng-disabled="!editRespForm.texto.$valid && editResp.score!==0" type="button" ng-click="editarResp1(editResp)" data-dismiss="modal" class="btn btn-primary">Enviar</button>
       </div>

@@ -50,12 +50,13 @@ angular.module('larryFrontApp')
                   }
               }
             };
+            $scope.datos=[
+              { "label" : $scope.users[0].id , "value" : $scope.users[0].num },
+              { "label" : $scope.users[1].username , "value" : $scope.users[1].num }
+            ];
             $scope.data = [{
                 key: "Cumulative Return",
-                values: [
-                  { "label" : $scope.users[0].id , "value" : $scope.users[0].num },
-                  { "label" : $scope.users[1].id , "value" : $scope.users[1].num }
-                ]
+                values: $scope.datos
             }];
 
         }).error(function(data){
